@@ -1,0 +1,48 @@
+A. Prime Deletion
+
+def isPrime(num):
+    factor = 2
+    while factor * factor <= num:
+        if num % factor == 0:
+            return 0
+        factor += 1
+    return 1
+ 
+for _ in range(int(input())):
+    digitBits = 0
+    string = input()
+    primeFound = 0
+    while(digitBits < 2 ** 9 - 1):
+        currDigitBits = digitBits
+        subStr = ""
+        stringInd = 0
+        while currDigitBits != 0:
+            if currDigitBits % 2:
+                subStr = subStr + string[stringInd]
+            currDigitBits = currDigitBits >> 1
+            stringInd += 1
+        if len(subStr) >= 2 and isPrime(int(subStr)):
+            print(subStr)
+            primeFound = 1
+            break
+        digitBits += 1
+    
+    if primeFound == 0:
+        print(-1)
+
+
+B. Two Binary Strings
+
+for _ in range(int(input())):
+    a, b = input(), input()
+    # print(a, b)
+    yes = 0
+    for ind in range(len(a) - 1):
+        if a[ind] == b[ind] and a[ind] == '0' and a[ind + 1] == b[ind + 1] and a[ind + 1] == '1':
+            print("YES")
+            yes = 1
+            break
+    if not yes:
+        print("NO")
+
+
