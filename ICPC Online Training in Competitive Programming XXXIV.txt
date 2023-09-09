@@ -1,0 +1,82 @@
+﻿D. Replacing digits
+
+
+a = input()
+s = input()
+a = [char for char in a]
+s = ''.join(sorted([char for char in s], reverse=True))
+
+
+sInd = 0
+
+
+for aDigit in range(len(a)):
+    if sInd >= len(s):
+        break
+    if a[aDigit] < s[sInd]:
+        a[aDigit] = s[sInd]
+        sInd += 1
+    aDigit += 1
+
+
+print(''.join(a))
+
+
+E. Make Them Equal
+
+
+for _ in range(int(input())):
+    n, c = list(input().split())
+    n = int(n)
+    s = '.' + input()
+    nums = []
+    
+    # check if answer is 0
+    
+    notCFound = 0
+    
+    for ind in range(1, len(s)):
+        char = s[ind]
+        if char != c:
+            notCFound = 1
+    
+    if notCFound == 0:
+        print(0)
+        continue
+    
+    # check if answer is 1
+    flagOne = 0
+    for baseNum in range(1, n + 1):
+        multiple = baseNum
+        while multiple <= n and s[multiple] == c:
+            multiple = multiple + baseNum
+        if multiple > n:
+            print(1)
+            print(baseNum)
+            flagOne = 1
+            break
+    if flagOne:
+        continue
+    
+    print(2)
+    print(n - 1, n)
+
+
+F. Vertical Paths
+
+
+
+
+# arr -> height, node num, visited, sonOne, sonTwo
+# dict -> {node num : Its ind in arr}
+# rootNum
+
+
+for _ in range(int(input())):
+    n = int(input())
+    arr = [[-1 for _ in range(6)] for __ in range(n + 1)]
+    p = list(map(int, input().split()))
+    for pInd in range(len(p)):
+        nodeNum = pInd + 1
+        par = p[pInd]
+        arr[nodeNum][2], arr[par][], arr[nodeNum][5] = nodeNum, par if arr[nodeNum][4] ==

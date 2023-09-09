@@ -1,0 +1,72 @@
+# link : https://codeforces.com/group/hosRkEuluH/contest/471479
+
+# Qn A Morning Sandwich
+
+# t = int(input())
+
+# for _ in range(t):
+#     b, c, h = list(map(int, input().split()))
+#     if b > c + h + 1:
+#         print(2 * (c + h) + 1)
+#     else:
+#         print(b + b - 1)
+
+# Qn B Mainak And Array
+
+# for _ in range(int(input())):
+#     n = int(input())
+#     nums = list(map(int, input().split()))
+#     if len(nums) == 1:
+#         print(0)
+#     else:
+#         ans = max(nums[-1] - nums[0], nums[-1]
+#                 - min(nums[:-1]), 
+#                 max(nums[1:]) - nums[0], 
+#                 max([nums[(i + len(nums) - 1) % len(nums)] - nums[i] for i in range(len(nums))]))
+#         print(ans)
+
+# Qn C. Consecutive Points Segment
+
+# for _ in range(int(input())):
+#     size = int(input())
+#     nums = list(map(int, input().split()))
+#     gaps = 0
+#     for i in range(len(nums) - 1):
+#         gaps = gaps + nums[i+1] - nums[i] - 1
+    
+#     if gaps > 2:
+#         print("NO")
+#     else:
+#         print("YES")
+
+# Qn D. Binary Inversions
+
+def findNumOfInversions(nums : list[int]) -> int:
+    ans = 0
+    numOfOnes = 0
+    for num in nums:
+        if num == 1:
+            numOfOnes += 1
+            continue
+        ans += numOfOnes
+    return ans
+
+for _ in range(int(input())):
+    n = int(input())
+    nums = list(map(int, input().split()))
+    ans = findNumOfInversions(nums)
+
+    for ind in range(len(nums)):
+        if nums[ind] == 0:
+            nums[ind] = 1
+            ans = max(ans, findNumOfInversions(nums))
+            nums[ind] = 0
+            break
+    
+    for ind in range(len(nums) - 1, -1, -1):
+        if nums[ind] == 1:
+            nums[ind] = 0
+            ans = max(ans, findNumOfInversions(nums))
+            nums[ind] = 1
+            break
+    print(ans)
