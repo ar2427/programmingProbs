@@ -1,0 +1,53 @@
+# 2839. Check if Strings Can be Made Equal With Operations I
+
+class Solution:
+    def canBeEqual(self, s1: str, s2: str) -> bool:
+        return sorted([s1[0], s1[2]]) == sorted([s2[0], s2[2]]) and sorted([s1[1], s1[3]]) == sorted([s2[1], s2[3]])
+
+# 2840. Check if Strings Can be Made Equal With Operations II
+
+class Solution:
+    def checkStrings(self, s1: str, s2: str) -> bool:
+        setsS1 = [[], []]
+        setsS2 = [[], []]
+        
+        for ind in range(len(s1)):
+            setsS1[ind % 2].append(s1[ind])
+            setsS2[ind % 2].append(s2[ind])
+        
+        return sorted(list(setsS1[0])) == sorted(list(setsS2[0])) and sorted(list(setsS1[1])) == sorted(list(setsS2[1]))
+        
+
+# 2841. Maximum Sum of Almost Unique Subarray
+
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int], m: int, k: int) -> int:
+        lastKCounts = defaultdict(int)
+        sumLastKCounts = 0
+        distinct = set()
+        
+        ans = 0
+        
+        for ind in range(k):
+            lastKCounts[nums[ind]] += 1
+            distinct.add(nums[ind])
+        sumLastKCounts = sum(nums[:k])
+        
+        if len(distinct) >= m:
+            ans = max(ans, sumLastKCounts)
+        # print(distinct, lastKCounts)
+        for ind in range(k, len(nums)):
+            lastKCounts[nums[ind]] += 1
+            if lastKCounts[nums[ind]] == 1:
+                distinct.add(nums[ind])
+            sumLastKCounts += nums[ind]
+            lastKCounts[nums[ind - k]] -= 1
+            if lastKCounts[nums[ind - k]] == 0:
+                # print(distinct, nums[ind - k])
+                distinct.remove(nums[ind - k])
+            sumLastKCounts -= nums[ind - k]
+            if len(distinct) >= m:
+                ans = max(ans, sumLastKCounts)
+        return ans
